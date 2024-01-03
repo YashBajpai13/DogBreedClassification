@@ -6,11 +6,14 @@ This project focuses on classifying dog breeds using the EfficientNetV2 B0 model
 1. Model Architecture
 The core of this project is the EfficientNetV2 B0 model, a state-of-the-art convolutional neural network known for its efficiency and high performance in image classification tasks.
 <br>
+<br>
 2. Dataset (Credits to Jessica Li (https://www.kaggle.com/jessicali9530))
 The dataset can be found on kaggle (https://www.kaggle.com/datasets/jessicali9530/stanford-dogs-dataset), I have not included it in the repository. It is a comprehensive collection that enables the model to generalize well across various breeds.
 <br>
+<br>
 3. Training
 The training details can be found in the dogbreedclassification.ipynb notebook.
+<br>
 <br>
 <h3>Deployment</h3>
 The deployment of this dog breed classification project is hosted on the Streamlit Community Cloud, providing a user-friendly interface for breed prediction. Users can upload images of dogs, and the model will predict the most likely breed along with its confidence level.
