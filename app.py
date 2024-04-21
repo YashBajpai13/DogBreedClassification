@@ -6,12 +6,13 @@ import re
 
 #st.set_option('deprecation.showfileUploaderEncoding', False)
 st.title("Dog Breed Classifier")
-@st.cache(allow_output_mutation=True)
+@st.cache_resource()#allow_output_mutation=True)
 def load_model():
     """
     Loads trained model
     """
-    model = tf.keras.models.load_model("effnet_saved_model")
+    #model = tf.keras.models.load_model("effnet_saved_model")
+    model = tf.keras.layers.TFSMLayer("effnet_saved_model", call_endpoint='serving_default')
     return model
 
 model = load_model()
@@ -27,7 +28,7 @@ def predict(image, model):
     image = ImageOps.fit(image, size)
     img = np.asarray(image)
     img_reshape = img[np.newaxis, :]
-    prediction = model.predict(img_reshape)
+    prediction = model(img_reshape)
     return prediction
 
 
@@ -52,5 +53,6 @@ else:
  'basenji', 'pug', 'Leonberg', 'Newfoundland', 'Great_Pyrenees', 'Samoyed', 'Pomeranian', 'chow', 'keeshond', 'Brabancon_griffon', 'Pembroke', 'Cardigan',
  'toy_poodle', 'miniature_poodle', 'standard_poodle', 'Mexican_hairless', 'dingo', 'dhole', 'African_hunting_dog']
 
-    string = f"This image is of a {class_names[np.argmax(predictions)]} dog, confidence level : {np.max(predictions) * 100} %"
+    #string = f"This image is of a {class_names[np.argmax(predictions)]} dog, confidence level : {np.max(predictions) * 100} %"
+    string = f"This image is of a {class_names[np.argmax(tf.squeeze(predictions['OutputLayer']))]} dog, confidence level : {np.max(tf.squeeze(predictions['OutputLayer'])) * 100} %"
     st.success(string)
